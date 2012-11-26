@@ -1,0 +1,21 @@
+.block
+{
+    .if (not(${/d:$arg1}) | not(${/d:$arg2}))
+    {
+        .printf "Need to supply an address range\n"
+        .printf "Example: $$>a<c:\script.wds 0x00100000 0x001FF000\n"
+    }
+
+    .else {
+        r $t0 = $arg1
+        r $t1 = $arg2
+        .for (r $t2 = 58; $t2 <= 5f; r $t2 = $t2+1)
+        {
+            .for (r $t3 = 58; $t3 <= 5f; r $t3 = $t3+1)
+            {
+                s -b $t0 $t1 $t2 $t3 c3
+                .sleep 500
+            }
+        }
+    }
+}
